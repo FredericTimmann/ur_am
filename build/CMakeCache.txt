@@ -610,6 +610,9 @@ catkin_DIR:PATH=/opt/ros/kinetic/share/catkin/cmake
 //The directory containing a CMake configuration file for class_loader.
 class_loader_DIR:PATH=/opt/ros/kinetic/share/class_loader/cmake
 
+//The directory containing a CMake configuration file for cmake_modules.
+cmake_modules_DIR:PATH=/opt/ros/kinetic/share/cmake_modules/cmake
+
 //The directory containing a CMake configuration file for control_msgs.
 control_msgs_DIR:PATH=/opt/ros/kinetic/share/control_msgs/cmake
 
@@ -806,11 +809,31 @@ tf_DIR:PATH=/opt/ros/kinetic/share/tf/cmake
 //The directory containing a CMake configuration file for trajectory_msgs.
 trajectory_msgs_DIR:PATH=/opt/ros/kinetic/share/trajectory_msgs/cmake
 
+//Value Computed by CMake
+ur3_motion_execution_BINARY_DIR:STATIC=/home/frederic/ur_am/build/ur3_motion_execution
+
+//Value Computed by CMake
+ur3_motion_execution_SOURCE_DIR:STATIC=/home/frederic/ur_am/src/ur3_motion_execution
+
+//The directory containing a CMake configuration file for ur3_moveit_config.
+ur3_moveit_config_DIR:PATH=/opt/ros/kinetic/share/ur3_moveit_config/cmake
+
+//Value Computed by CMake
+ur3move_BINARY_DIR:STATIC=/home/frederic/ur_am/build/ur3move
+
+//Value Computed by CMake
+ur3move_SOURCE_DIR:STATIC=/home/frederic/ur_am/src/ur3move
+
 //Dependencies for the target
 ur_hardware_interface_LIB_DEPENDS:STATIC=general;/opt/ros/kinetic/lib/libcontroller_manager.so;general;/usr/lib/x86_64-linux-gnu/libtinyxml2.so;general;/opt/ros/kinetic/lib/libclass_loader.so;general;/usr/lib/libPocoFoundation.so;general;/usr/lib/x86_64-linux-gnu/libdl.so;general;/opt/ros/kinetic/lib/libroslib.so;general;/opt/ros/kinetic/lib/librospack.so;general;/usr/lib/x86_64-linux-gnu/libpython2.7.so;general;/usr/lib/x86_64-linux-gnu/libboost_program_options.so;general;/usr/lib/x86_64-linux-gnu/libtinyxml.so;general;/opt/ros/kinetic/lib/libtf.so;general;/opt/ros/kinetic/lib/libtf2_ros.so;general;/opt/ros/kinetic/lib/libactionlib.so;general;/opt/ros/kinetic/lib/libmessage_filters.so;general;/opt/ros/kinetic/lib/libroscpp.so;general;/usr/lib/x86_64-linux-gnu/libboost_filesystem.so;general;/usr/lib/x86_64-linux-gnu/libboost_signals.so;general;/opt/ros/kinetic/lib/libxmlrpcpp.so;general;/opt/ros/kinetic/lib/libtf2.so;general;/opt/ros/kinetic/lib/libroscpp_serialization.so;general;/opt/ros/kinetic/lib/librosconsole.so;general;/opt/ros/kinetic/lib/librosconsole_log4cxx.so;general;/opt/ros/kinetic/lib/librosconsole_backend_interface.so;general;/usr/lib/x86_64-linux-gnu/liblog4cxx.so;general;/usr/lib/x86_64-linux-gnu/libboost_regex.so;general;/opt/ros/kinetic/lib/librostime.so;general;/opt/ros/kinetic/lib/libcpp_common.so;general;/usr/lib/x86_64-linux-gnu/libboost_system.so;general;/usr/lib/x86_64-linux-gnu/libboost_thread.so;general;/usr/lib/x86_64-linux-gnu/libboost_chrono.so;general;/usr/lib/x86_64-linux-gnu/libboost_date_time.so;general;/usr/lib/x86_64-linux-gnu/libboost_atomic.so;general;/usr/lib/x86_64-linux-gnu/libpthread.so;general;/usr/lib/x86_64-linux-gnu/libconsole_bridge.so;
 
+//The directory containing a CMake configuration file for ur_modern_drive.
+ur_modern_drive_DIR:PATH=ur_modern_drive_DIR-NOTFOUND
+
 //Value Computed by CMake
 ur_modern_driver_BINARY_DIR:STATIC=/home/frederic/ur_am/build/ur_modern_driver
+
+ur_modern_driver_DIR:PATH=
 
 //Value Computed by CMake
 ur_modern_driver_SOURCE_DIR:STATIC=/home/frederic/ur_am/src/ur_modern_driver
@@ -971,7 +994,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=6
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=8
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP

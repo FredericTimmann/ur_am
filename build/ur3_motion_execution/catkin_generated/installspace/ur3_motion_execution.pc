@@ -1,0 +1,8 @@
+prefix=/home/frederic/ur_am/install
+
+Name: ur3_motion_execution
+Description: Description of ur3_motion_execution
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/frederic/ur_am/install/lib 
+Requires: 

@@ -1,0 +1,8 @@
+prefix=/home/frederic/ur_am/devel
+
+Name: ur3move
+Description: Description of ur3move
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/frederic/ur_am/devel/lib 
+Requires: 

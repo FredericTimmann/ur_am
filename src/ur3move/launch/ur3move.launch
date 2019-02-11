@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<launch>
+
+
+  <!-- robot model -->
+  <include file="$(find ur_modern_driver)/launch/ur3_ros_control.launch">
+  </include>
+  <include file="$(find ur3_moveit_config)/launch/ur3_moveit_planning_execution.launch">
+  </include>
+  <include file="$(find ur3_moveit_config)/launch/moveit_rviz.launch">
+ <arg name="config" value="true"/>
+  </include>
+</launch>
