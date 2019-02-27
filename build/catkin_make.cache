@@ -1,2 +1,2 @@
-mimic_joint_gazebo_tutorial:roboticsgroup_gazebo_plugins:ur3_motion_execution:ur3move:ur_modern_driver
+mimic_joint_gazebo_tutorial:roboticsgroup_gazebo_plugins:ur3_motion_execution:ur3_planning:ur3move:ur_modern_driver
 -DCATKIN_DEVEL_PREFIX=/home/frederic/ur_am/devel -DCMAKE_INSTALL_PREFIX=/home/frederic/ur_am/install -G Unix Makefiles
