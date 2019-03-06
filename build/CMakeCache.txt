@@ -734,6 +734,9 @@ ignition-math2_DIR:PATH=/usr/lib/x86_64-linux-gnu/cmake/ignition-math2
 //The directory containing a CMake configuration file for image_transport.
 image_transport_DIR:PATH=/opt/ros/kinetic/share/image_transport/cmake
 
+//The directory containing a CMake configuration file for industrial_msgs.
+industrial_msgs_DIR:PATH=/opt/ros/kinetic/share/industrial_msgs/cmake
+
 //The directory containing a CMake configuration file for interactive_makers.
 interactive_makers_DIR:PATH=interactive_makers_DIR-NOTFOUND
 
@@ -1132,7 +1135,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=9
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=8
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP

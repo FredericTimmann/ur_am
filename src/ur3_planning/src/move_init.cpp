@@ -130,10 +130,13 @@ int main(int argc, char** argv)
   collision_detection::CollisionResult collision_result;
   planning_scene.checkSelfCollision(collision_request, collision_result);
   ROS_INFO_STREAM("Test 1: Current state is " << (collision_result.collision ? "in" : "not in") << " self collision");
+
+
+
 /*****************************************/
 //Motion planning
 // Note that we are using the ROS pluginlib library here.
-boost::scoped_ptr<pluginlib::ClassLoader<planning_interface::PlannerManager>> planner_plugin_loader;
+/*boost::scoped_ptr<pluginlib::ClassLoader<planning_interface::PlannerManager>> planner_plugin_loader;
 planning_interface::PlannerManagerPtr planner_instance;
 std::string planner_plugin_name;
 // We will get the name of planning plugin we want to load
@@ -176,8 +179,8 @@ planning_interface::MotionPlanResponse res;
 geometry_msgs::PoseStamped pose;
 pose.header.frame_id = "base_link";
 pose.pose.position.x = 0.3;
-pose.pose.position.y = 0.0;
-pose.pose.position.z = 0.3;
+pose.pose.position.y = 0.2;
+pose.pose.position.z = 0.1;
 pose.pose.orientation.w = 1.0;
 
 // A tolerance of 0.01 m is specified in position
@@ -193,7 +196,7 @@ req.goal_constraints.push_back(pose_goal);
 // We now construct a planning context that encapsulate the scene,
 // the request and the response. We call the planner using this
 // planning context
-/*
+
 planning_interface::PlanningContextPtr context;
 context =  planner_instance->getPlanningContext(planning_scene, req, res.error_code_) const = 0;
 context->solve(res);
@@ -201,14 +204,14 @@ if (res.error_code_.val != res.error_code_.SUCCESS)
 {
   ROS_ERROR("Could not compute plan successfully");
   return 0;
-}*/
+}
 // Visualize the result
 // ^^^^^^^^^^^^^^^^^^^^
 ros::Publisher display_publisher =
     node_handle.advertise<moveit_msgs::DisplayTrajectory>("/move_group/display_planned_path", 1, true);
 moveit_msgs::DisplayTrajectory display_trajectory;
 
-/* Visualize the trajectory */
+/* Visualize the trajectory
 ROS_INFO("Visualizing the trajectory");
 moveit_msgs::MotionPlanResponse response;
 res.getMessage(response);
@@ -217,7 +220,7 @@ display_trajectory.trajectory_start = response.trajectory_start;
 display_trajectory.trajectory.push_back(response.trajectory);
 display_publisher.publish(display_trajectory);
 
-
+*/
   ros::shutdown();
   return 0;
 }

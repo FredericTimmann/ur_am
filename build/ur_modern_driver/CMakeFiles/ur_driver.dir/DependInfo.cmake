@@ -4,13 +4,22 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/frederic/ur_am/src/ur_modern_driver/src/do_output.cpp" "/home/frederic/ur_am/build/ur_modern_driver/CMakeFiles/ur_driver.dir/src/do_output.cpp.o"
-  "/home/frederic/ur_am/src/ur_modern_driver/src/robot_state.cpp" "/home/frederic/ur_am/build/ur_modern_driver/CMakeFiles/ur_driver.dir/src/robot_state.cpp.o"
-  "/home/frederic/ur_am/src/ur_modern_driver/src/robot_state_RT.cpp" "/home/frederic/ur_am/build/ur_modern_driver/CMakeFiles/ur_driver.dir/src/robot_state_RT.cpp.o"
-  "/home/frederic/ur_am/src/ur_modern_driver/src/ur_communication.cpp" "/home/frederic/ur_am/build/ur_modern_driver/CMakeFiles/ur_driver.dir/src/ur_communication.cpp.o"
-  "/home/frederic/ur_am/src/ur_modern_driver/src/ur_driver.cpp" "/home/frederic/ur_am/build/ur_modern_driver/CMakeFiles/ur_driver.dir/src/ur_driver.cpp.o"
-  "/home/frederic/ur_am/src/ur_modern_driver/src/ur_realtime_communication.cpp" "/home/frederic/ur_am/build/ur_modern_driver/CMakeFiles/ur_driver.dir/src/ur_realtime_communication.cpp.o"
-  "/home/frederic/ur_am/src/ur_modern_driver/src/ur_ros_wrapper.cpp" "/home/frederic/ur_am/build/ur_modern_driver/CMakeFiles/ur_driver.dir/src/ur_ros_wrapper.cpp.o"
+  "/home/frederic/ur_am/src/ur_modern_driver/src/ros/action_server.cpp" "/home/frederic/ur_am/build/ur_modern_driver/CMakeFiles/ur_driver.dir/src/ros/action_server.cpp.o"
+  "/home/frederic/ur_am/src/ur_modern_driver/src/ros/lowbandwidth_trajectory_follower.cpp" "/home/frederic/ur_am/build/ur_modern_driver/CMakeFiles/ur_driver.dir/src/ros/lowbandwidth_trajectory_follower.cpp.o"
+  "/home/frederic/ur_am/src/ur_modern_driver/src/ros/mb_publisher.cpp" "/home/frederic/ur_am/build/ur_modern_driver/CMakeFiles/ur_driver.dir/src/ros/mb_publisher.cpp.o"
+  "/home/frederic/ur_am/src/ur_modern_driver/src/ros/rt_publisher.cpp" "/home/frederic/ur_am/build/ur_modern_driver/CMakeFiles/ur_driver.dir/src/ros/rt_publisher.cpp.o"
+  "/home/frederic/ur_am/src/ur_modern_driver/src/ros/service_stopper.cpp" "/home/frederic/ur_am/build/ur_modern_driver/CMakeFiles/ur_driver.dir/src/ros/service_stopper.cpp.o"
+  "/home/frederic/ur_am/src/ur_modern_driver/src/ros/trajectory_follower.cpp" "/home/frederic/ur_am/build/ur_modern_driver/CMakeFiles/ur_driver.dir/src/ros/trajectory_follower.cpp.o"
+  "/home/frederic/ur_am/src/ur_modern_driver/src/ros/urscript_handler.cpp" "/home/frederic/ur_am/build/ur_modern_driver/CMakeFiles/ur_driver.dir/src/ros/urscript_handler.cpp.o"
+  "/home/frederic/ur_am/src/ur_modern_driver/src/ros_main.cpp" "/home/frederic/ur_am/build/ur_modern_driver/CMakeFiles/ur_driver.dir/src/ros_main.cpp.o"
+  "/home/frederic/ur_am/src/ur_modern_driver/src/tcp_socket.cpp" "/home/frederic/ur_am/build/ur_modern_driver/CMakeFiles/ur_driver.dir/src/tcp_socket.cpp.o"
+  "/home/frederic/ur_am/src/ur_modern_driver/src/ur/commander.cpp" "/home/frederic/ur_am/build/ur_modern_driver/CMakeFiles/ur_driver.dir/src/ur/commander.cpp.o"
+  "/home/frederic/ur_am/src/ur_modern_driver/src/ur/master_board.cpp" "/home/frederic/ur_am/build/ur_modern_driver/CMakeFiles/ur_driver.dir/src/ur/master_board.cpp.o"
+  "/home/frederic/ur_am/src/ur_modern_driver/src/ur/messages.cpp" "/home/frederic/ur_am/build/ur_modern_driver/CMakeFiles/ur_driver.dir/src/ur/messages.cpp.o"
+  "/home/frederic/ur_am/src/ur_modern_driver/src/ur/robot_mode.cpp" "/home/frederic/ur_am/build/ur_modern_driver/CMakeFiles/ur_driver.dir/src/ur/robot_mode.cpp.o"
+  "/home/frederic/ur_am/src/ur_modern_driver/src/ur/rt_state.cpp" "/home/frederic/ur_am/build/ur_modern_driver/CMakeFiles/ur_driver.dir/src/ur/rt_state.cpp.o"
+  "/home/frederic/ur_am/src/ur_modern_driver/src/ur/server.cpp" "/home/frederic/ur_am/build/ur_modern_driver/CMakeFiles/ur_driver.dir/src/ur/server.cpp.o"
+  "/home/frederic/ur_am/src/ur_modern_driver/src/ur/stream.cpp" "/home/frederic/ur_am/build/ur_modern_driver/CMakeFiles/ur_driver.dir/src/ur/stream.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

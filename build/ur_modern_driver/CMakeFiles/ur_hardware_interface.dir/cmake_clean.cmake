@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/ur_hardware_interface.dir/src/ur_hardware_interface.cpp.o"
+  "CMakeFiles/ur_hardware_interface.dir/src/ros/hardware_interface.cpp.o"
+  "CMakeFiles/ur_hardware_interface.dir/src/ros/controller.cpp.o"
   "/home/frederic/ur_am/devel/lib/libur_hardware_interface.pdb"
   "/home/frederic/ur_am/devel/lib/libur_hardware_interface.so"
 )

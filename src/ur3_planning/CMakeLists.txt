@@ -59,7 +59,8 @@ find_package(catkin REQUIRED COMPONENTS
 ##     find_package(catkin REQUIRED COMPONENTS ...)
 ##   * add "message_runtime" and every package in MSG_DEP_SET to
 ##     catkin_package(CATKIN_DEPENDS ...)
-##   * uncomment the add_*_files sections below as needed
+##   * uncomment the add_*_files#
+
 ##     and list every .msg/.srv/.action file to be processed
 ##   * uncomment the generate_messages entry below
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
@@ -152,7 +153,8 @@ include_directories(
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
 add_executable(move_init_node src/move_init.cpp)
-
+add_executable(move_cartesian_node src/move_cartesian.cpp)
+add_executable(move_lin_node src/move_lin.cpp)
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
@@ -162,12 +164,18 @@ add_executable(move_init_node src/move_init.cpp)
 ## Add cmake target dependencies of the executable
 ## same as for the library above
 add_dependencies(move_init_node ur3_planning_generate_messages_cpp)
-
+add_dependencies(move_cartesian_node ur3_planning_generate_messages_cpp)
+add_dependencies(move_lin_node ur3_planning_generate_messages_cpp)
 ## Specify libraries to link a library or executable target against
 target_link_libraries(move_init_node
   ${catkin_LIBRARIES}
 )
-
+target_link_libraries(move_cartesian_node
+  ${catkin_LIBRARIES}
+)
+target_link_libraries(move_lin_node
+  ${catkin_LIBRARIES}
+)
 #############
 ## Install ##
 #############

@@ -4,7 +4,8 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/frederic/ur_am/src/ur_modern_driver/src/ur_hardware_interface.cpp" "/home/frederic/ur_am/build/ur_modern_driver/CMakeFiles/ur_hardware_interface.dir/src/ur_hardware_interface.cpp.o"
+  "/home/frederic/ur_am/src/ur_modern_driver/src/ros/controller.cpp" "/home/frederic/ur_am/build/ur_modern_driver/CMakeFiles/ur_hardware_interface.dir/src/ros/controller.cpp.o"
+  "/home/frederic/ur_am/src/ur_modern_driver/src/ros/hardware_interface.cpp" "/home/frederic/ur_am/build/ur_modern_driver/CMakeFiles/ur_hardware_interface.dir/src/ros/hardware_interface.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

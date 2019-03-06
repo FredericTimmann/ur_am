@@ -116,7 +116,7 @@ if(NOT "/home/frederic/ur_am/src/ur_modern_driver/include " STREQUAL " ")
   endforeach()
 endif()
 
-set(libraries "")
+set(libraries "ur_hardware_interface")
 foreach(library ${libraries})
   # keep build configuration keywords, target names and absolute libraries as-is
   if("${library}" MATCHES "^(debug|optimized|general)$")

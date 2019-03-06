@@ -5,7 +5,6 @@
 # This file includes the relevant testing commands required for 
 # testing this directory and lists subdirectories to be tested as well.
 subdirs(gtest)
-subdirs(mimic_joint_gazebo_tutorial)
 subdirs(ur3_motion_execution)
 subdirs(ur3move)
 subdirs(roboticsgroup_gazebo_plugins)
