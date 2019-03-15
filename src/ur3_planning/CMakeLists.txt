@@ -17,7 +17,6 @@ find_package(catkin REQUIRED COMPONENTS
   std_msgs
   moveit_visual_tools
   interactive_markers
-  moveit_core
   moveit_visual_tools 
   moveit_ros_planning
   moveit_msgs
@@ -124,8 +123,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES ur3_planning
-#  CATKIN_DEPENDS cmake_modules interactive_makers moveit_core moveit_ros_perception moveit_ros_planning_interface pluginlib roscpp std_msgs
-#  DEPENDS system_lib
+CATKIN_DEPENDS  interactive_makers moveit_core moveit_ros_perception moveit_ros_planning_interface pluginlib roscpp std_msgs
 )
 
 ###########
@@ -155,6 +153,8 @@ include_directories(
 add_executable(move_init_node src/move_init.cpp)
 add_executable(move_cartesian_node src/move_cartesian.cpp)
 add_executable(move_lin_node src/move_lin.cpp)
+add_executable(g_code_parser_node src/g_code_parser.cpp)
+
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
@@ -166,6 +166,7 @@ add_executable(move_lin_node src/move_lin.cpp)
 add_dependencies(move_init_node ur3_planning_generate_messages_cpp)
 add_dependencies(move_cartesian_node ur3_planning_generate_messages_cpp)
 add_dependencies(move_lin_node ur3_planning_generate_messages_cpp)
+add_dependencies(g_code_parser_node ur3_planning_generate_messages_cpp)
 ## Specify libraries to link a library or executable target against
 target_link_libraries(move_init_node
   ${catkin_LIBRARIES}
@@ -174,6 +175,9 @@ target_link_libraries(move_cartesian_node
   ${catkin_LIBRARIES}
 )
 target_link_libraries(move_lin_node
+  ${catkin_LIBRARIES}
+)
+target_link_libraries(g_code_parser_node
   ${catkin_LIBRARIES}
 )
 #############

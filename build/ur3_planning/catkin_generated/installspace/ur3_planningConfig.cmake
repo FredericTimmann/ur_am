@@ -160,7 +160,7 @@ foreach(t ${ur3_planning_EXPORTED_TARGETS})
   endif()
 endforeach()
 
-set(depends "")
+set(depends "interactive_makers;moveit_core;moveit_ros_perception;moveit_ros_planning_interface;pluginlib;roscpp;std_msgs")
 foreach(depend ${depends})
   string(REPLACE " " ";" depend_list ${depend})
   # the package name of the dependency must be kept in a unique variable so that it is not overwritten in recursive calls

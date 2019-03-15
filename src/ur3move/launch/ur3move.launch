@@ -4,12 +4,24 @@
 
   <!-- robot model -->
   <include file="$(find ur_modern_driver)/launch/ur3_bringup.launch">
-<arg name="robot_ip" value="192.168.0.12"/>
+ <!-- <arg name="robot_ip" value="192.168.0.12"/>-->
+<arg name="robot_ip" value="127.0.0.1"/>
+<arg name="servoj_time" value="0.008"/>
+<arg name="servoj_lookahead_time" value="0.1"/>
+<arg name="servoj_gain" value="1000 "/>
+<arg name="time_interval" value="0.05"/>
+<arg name="use_lowbandwidth_trajectory_follower" value="true"/>
+
   </include>
   <include file="$(find ur3_moveit_config)/launch/ur3_moveit_planning_execution.launch">
-<arg name="limited" value="true"/>
+<!--<arg name="limited" value="true"/>-->
   </include>
   <include file="$(find ur3_moveit_config)/launch/moveit_rviz.launch">
  <arg name="config" value="true"/>
   </include>
+  <node name="pos_vel_plot"
+        pkg="rqt_plot"
+        type="rqt_plot"
+        args="/joint_states/position[1] /joint_states/position[2]  /joint_states/velocity[1] /joint_states/velocity[2] /follow_joint_trajectory/goal/velocity[1] follow_joint_trajectory/goal/velocity[2]" />
+<node name="edits_pub_node" pkg="ur3move" type="edits_pub_node" output="screen" />
 </launch>

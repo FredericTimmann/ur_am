@@ -5,4 +5,4 @@ Description: Description of ur3_planning
 Version: 0.0.0
 Cflags: 
 Libs: -L/home/frederic/ur_am/install/lib 
-Requires: 
+Requires: interactive_makers moveit_core moveit_ros_perception moveit_ros_planning_interface pluginlib roscpp std_msgs

@@ -118,8 +118,8 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("/home/frederic/ur_am/build/gtest/cmake_install.cmake")
   include("/home/frederic/ur_am/build/ur3_motion_execution/cmake_install.cmake")
-  include("/home/frederic/ur_am/build/ur3move/cmake_install.cmake")
   include("/home/frederic/ur_am/build/roboticsgroup_gazebo_plugins/cmake_install.cmake")
+  include("/home/frederic/ur_am/build/ur3move/cmake_install.cmake")
   include("/home/frederic/ur_am/build/ur_modern_driver/cmake_install.cmake")
   include("/home/frederic/ur_am/build/ur3_planning/cmake_install.cmake")
 

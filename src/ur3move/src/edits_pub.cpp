@@ -1,0 +1,62 @@
+#include <ros/ros.h>
+#include "rosbag/bag.h"
+#include "control_msgs/FollowJointTrajectoryActionGoal.h"
+//#include "trajectory_msgs/JoinTrajectoryPoint.h"
+#include "trajectory_msgs/JointTrajectory.h"
+#include <tf/transform_listener.h>
+ #include <geometry_msgs/Pose.h>
+//#include <Vector3.h>
+
+//trajectory_msgs::JointTrajectoryPoint tr_goal;
+control_msgs::FollowJointTrajectoryActionGoal   tr_goal;
+ros::Publisher goal_pub;
+
+void callback_1(const control_msgs::FollowJointTrajectoryActionGoal& msg)
+{
+//tr_goal=msg.goal.trajectory.points[1];
+tr_goal=msg;
+goal_pub.publish(tr_goal);
+ROS_INFO("Subrcribed TOPIC");
+}
+
+int main(int argc, char **argv)
+{
+// ROS i n i t i a l i z a t i o n
+ros::init(argc, argv, "edits_pub");
+ros::NodeHandle nh_;
+
+
+ros::Subscriber sub =  nh_.subscribe("/follow_joint_trajectory/goal", 1000, callback_1);
+goal_pub = nh_.advertise<control_msgs::FollowJointTrajectoryActionGoal>("/trajectory/goal", 1000);
+ros::Publisher eef_pub = nh_.advertise<geometry_msgs::Pose >("/tool_position", 1000);
+//ros::Publisher goal_pub = nh_.advertise<trajectory_msgs::JointTrajectoryPoint>("/trajectory/goal", 1000);
+
+//ROS_INFO("pos: %f", tr_goal.positions[1]);
+tf::TransformListener listener;
+  ros::Rate rate(100.0);
+  while (nh_.ok()){
+    tf::StampedTransform transform;
+    geometry_msgs::Pose transPUB;
+      try{
+      listener.lookupTransform("/base", "/tool0_controller", ros::Time(0), transform);
+      transPUB.position.x=transform.getOrigin().x()*1000;//tcp_position in mm
+      transPUB.position.y=transform.getOrigin().y()*1000;//tcp_position in mm
+      transPUB.position.z=transform.getOrigin().z()*1000;//tcp_position in mm
+      transPUB.orientation.x=transform.getRotation().x();//tcp_orientation
+      transPUB.orientation.y=transform.getRotation().y();//tcp_orientation
+      transPUB.orientation.z=transform.getRotation().z();//tcp_orientation
+      transPUB.orientation.w=transform.getRotation().w();//tcp_orientation
+      eef_pub.publish(transPUB);
+      }
+      catch (tf::TransformException ex){
+        ROS_ERROR("%s",ex.what());
+        ros::Duration(1.0).sleep();
+      }
+      rate.sleep();
+      //ros::spinOnce();
+    }
+
+
+
+
+}
