@@ -1,33 +1,16 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(ur3_planning)
+project(printing_msg)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
-add_compile_options(-std=c++11)
+# add_compile_options(-std=c++11)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-  cmake_modules
-  moveit_core
-  moveit_ros_perception
-  moveit_ros_planning_interface
-  pluginlib
+  geometry_msgs
   roscpp
   std_msgs
-  moveit_visual_tools
-  interactive_markers
-  moveit_visual_tools 
-  moveit_ros_planning
-  moveit_msgs
-  pluginlib
-  geometric_shapes
-  pcl_ros
-  pcl_conversions
-  rosbag
-  tf2_ros
-  tf2_eigen
-  tf2_geometry_msgs
 )
 
 ## System dependencies are found with CMake's conventions
@@ -58,8 +41,7 @@ find_package(catkin REQUIRED COMPONENTS
 ##     find_package(catkin REQUIRED COMPONENTS ...)
 ##   * add "message_runtime" and every package in MSG_DEP_SET to
 ##     catkin_package(CATKIN_DEPENDS ...)
-##   * uncomment the add_*_files#
-
+##   * uncomment the add_*_files sections below as needed
 ##     and list every .msg/.srv/.action file to be processed
 ##   * uncomment the generate_messages entry below
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
@@ -88,7 +70,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## Generate added messages and services with any dependencies listed here
 # generate_messages(
 #   DEPENDENCIES
-#   std_msgs
+#   geometry_msgs#   std_msgs
 # )
 
 ################################################
@@ -122,8 +104,9 @@ find_package(catkin REQUIRED COMPONENTS
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES ur3_planning
-CATKIN_DEPENDS  interactive_makers moveit_core moveit_ros_perception moveit_ros_planning_interface pluginlib roscpp std_msgs
+#  LIBRARIES printing_msg
+#  CATKIN_DEPENDS geometry_msgs roscpp std_msgs
+#  DEPENDS system_lib
 )
 
 ###########
@@ -139,7 +122,7 @@ include_directories(
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/ur3_planning.cpp
+#   src/${PROJECT_NAME}/printing_msg.cpp
 # )
 
 ## Add cmake target dependencies of the library
@@ -150,11 +133,7 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-add_executable(move_init_node src/move_init.cpp)
-add_executable(move_cartesian_node src/move_cartesian.cpp)
-add_executable(move_lin_node src/move_lin.cpp)
-add_executable(g_code_parser_node src/g_code_parser.cpp)
-add_executable(run_printing_process_node src/run_printing_process.cpp)
+# add_executable(${PROJECT_NAME}_node src/printing_msg_node.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -164,27 +143,13 @@ add_executable(run_printing_process_node src/run_printing_process.cpp)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
-add_dependencies(move_init_node ur3_planning_generate_messages_cpp)
-add_dependencies(move_cartesian_node ur3_planning_generate_messages_cpp)
-add_dependencies(move_lin_node ur3_planning_generate_messages_cpp)
-add_dependencies(g_code_parser_node ur3_planning_generate_messages_cpp)
-add_dependencies(run_printing_process_node ur3_planning_generate_messages_cpp)
+# add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
 ## Specify libraries to link a library or executable target against
-target_link_libraries(move_init_node
-  ${catkin_LIBRARIES}
-)
-target_link_libraries(move_cartesian_node
-  ${catkin_LIBRARIES}
-)
-target_link_libraries(move_lin_node
-  ${catkin_LIBRARIES}
-)
-target_link_libraries(g_code_parser_node
-  ${catkin_LIBRARIES}
-)
-target_link_libraries(run_printing_process_node
-  ${catkin_LIBRARIES}
-)
+# target_link_libraries(${PROJECT_NAME}_node
+#   ${catkin_LIBRARIES}
+# )
+
 #############
 ## Install ##
 #############
@@ -225,7 +190,7 @@ target_link_libraries(run_printing_process_node
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_ur3_planning.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_printing_msg.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
