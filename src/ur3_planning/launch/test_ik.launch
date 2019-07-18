@@ -1,0 +1,11 @@
+<?xml version="1.0"?> 
+<launch>
+   <node name="test_ik_node" type="test_ik_node"      pkg="ur3_planning" output="screen">
+     <rosparam>
+       chain_start: "base"
+       chain_end: "tool0"
+       num_samples: 1
+       timeout: 0.1
+     </rosparam>
+   </node>
+ </launch>

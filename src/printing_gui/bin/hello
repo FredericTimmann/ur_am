@@ -1,0 +1,367 @@
+#!/usr/bin/env python
+import Tkinter
+import tkMessageBox
+from Tkinter import *
+#from PIL import ImageTk, Image
+import os
+import tkFont
+import subprocess
+import tkFileDialog
+import shutil
+import pickle
+import rospy
+from std_msgs.msg import String
+classlist=[]
+a={}
+b={}
+c={}
+globalstring='cahrname'
+top = Tkinter.Tk()
+temvar = StringVar()
+temvar.set("ossi")
+def callback(data):
+    global temvar
+    rospy.loginfo(rospy.get_caller_id() + "I heard %s", data.data)
+    temvar.set("wessi")
+def listener(self):
+
+    # In ROS, nodes are uniquely named. If two nodes with the same
+    # name are launched, the previous one is kicked off. The
+    # anonymous=True flag means that rospy will choose a unique
+    # name for our 'listener' node so that multiple listeners can
+    # run simultaneously.
+    rospy.init_node('listener', anonymous=True)
+    rospy.Subscriber("chatter", String, callback)
+
+    # spin() simply keeps python from exiting until this node is stopped
+
+#create frames/ object classification
+#geometrie
+
+def counted(fn):
+    def wrapper(*args, **kwargs):
+        wrapper.called += 1
+        return fn(*args, **kwargs)
+    wrapper.called = 0
+    wrapper.__name__ = fn.__name__
+    return wrapper
+
+@counted
+def id():
+    return
+
+@counted
+def row_id():
+    return
+
+def reset_row():
+    row_id.called=0
+    return
+
+def get_id(self):
+    id()
+    self.id=id.called
+    return self.id
+
+def get_row_id(self):
+    row_id()
+    self.id=row_id.called
+    return self.id
+
+#function build entry field with label an unit
+def build_ent(input,fr):
+    a[input.id] = Label(fr, text=input.n,width=15,anchor=W)
+    a[input.id].grid(row=input.r, sticky=W)
+    b[input.id] = Entry(fr, bd=2,width=6)
+    b[input.id].insert(0,input.d)
+    b[input.id].grid(row=input.r, column=1)
+    c[input.id]=Label(fr,text=input.u,width=5)
+    c[input.id].grid(row=input.r,column=2,sticky=W)
+def build_varent(input,fr):
+    a[input.id] = Label(fr, text=input.n,width=15,anchor=W)
+    a[input.id].grid(row=input.r, sticky=W)
+    b[input.id] = Entry(fr, bd=2,width=6)
+    b[input.id].insert(0,input.d)
+    b[input.id].grid(row=input.r, column=1)
+    c[input.id]=Label(fr,text=input.u,width=5)
+    c[input.id].grid(row=input.r,column=2,sticky=W)
+
+#function build headline
+def build_headl(input,fr):
+    a[input.id]=Label(fr,text=input.n,width=26,anchor=W)
+    a[input.id].grid(row=input.r,sticky=W, columnspan=3)
+
+#function build checkbutton
+def build_ckbtn(input,fr):
+    b[input.id]=StringVar()
+    b[input.id].set(input.d)
+    a[input.id]=Checkbutton(fr, text=input.n, variable=b[input.id])
+    a[input.id].grid(row=input.r,sticky=W,columnspan=3)
+
+#function build optionmenu
+def build_opmenu(input,fr):
+    b[input.id]=StringVar(fr)
+    b[input.id].set(input.d)
+    b[input.id].trace("w",hide)
+    a[input.id]=apply(OptionMenu, (fr, b[input.id]) + tuple(input.o))
+    a[input.id].grid(row=input.r,sticky=EW,columnspan=2)
+    c[input.id]=Label(fr,text="",width=5)
+    c[input.id].grid(row=input.r,column=2,sticky=W)
+
+#function build empty row
+def spacer(fr,row,col):
+    Label(fr,text="",width=26,height=1).grid(row=row,column=col,sticky=W, columnspan=3)
+
+#class headline:
+class headl(object):
+    """docstring for ipt."""
+    def __init__(self,name):
+        self.t = "headl"
+        self.n = name
+        self.r=[]
+        self.id=[]
+    def remove(self):
+        a[self.id].grid_remove()
+    def rebuild(self):
+        a[self.id].grid()
+
+#clas Variable entry field
+class varent(object):
+    """docstring for ipt."""
+    def __init__(self,name,default,var):
+        self.t = "varent"
+	self.v = temvar
+	self.v.trace("w", self._update_val)
+        self.n = name
+        self.u=self.v.get()
+        self.d = default
+        self.r=[]
+        self.id=[]
+    def get(self):
+        return b[self.id].get()
+    def remove(self):
+        a[self.id].grid_remove()
+        b[self.id].grid_remove()
+        c[self.id].grid_remove()
+    def rebuild(self):
+        a[self.id].grid()
+        b[self.id].grid()
+        c[self.id].grid()
+    def _update_val(self,*args):
+        self.u=self.v.get()
+        #rebuild(self)
+
+
+#clas entry field
+class ent(object):
+    """docstring for ipt."""
+    def __init__(self,name,default,unit):
+        self.t = "ent"
+        self.n = name
+        self.d = default
+        self.u = unit
+        self.r=[]
+        self.id=[]
+    def get(self):
+        return b[self.id].get()
+    def remove(self):
+        a[self.id].grid_remove()
+        b[self.id].grid_remove()
+        c[self.id].grid_remove()
+    def rebuild(self):
+        a[self.id].grid()
+        b[self.id].grid()
+        c[self.id].grid()
+
+#class checkbutton
+class ckbtn(object):
+    """docstring for ipt."""
+    def __init__(self,name,default):
+        self.t = "ckbtn"
+        self.n = name
+        self.d = default
+        self.r=[]
+        self.id=[]
+    def get(self):
+        return b[self.id].get()
+    def remove(self):
+        a[self.id].grid_remove()
+    def rebuild(self):
+        a[self.id].grid()
+
+#class optionmenu
+class opmenu(object):
+    """docstring for ipt."""
+    def __init__(self,default,*options):
+        self.t = "opmenu"
+        self.d = options[default]
+        self.o=options
+        self.r=[]
+        self.id=[]
+    def get(self):
+        return b[self.id].get()
+    def remove(self):
+        a[self.id].grid_remove()
+    def rebuild(self):
+        a[self.id].grid()
+
+#class
+class iptbox:
+    """docstring for iptbox."""
+    def __init__(self, frame,arg):
+        classlist.append(self)
+        self.list=arg
+        self.f=frame
+        for i in range(0,len(arg)):
+            arg[i].r=get_row_id(self)
+            arg[i].id=get_id(self)
+            try:
+                # Load the dictionary back from the pickle file.
+                default_file="default\\"+str(arg[i].id)+".p"
+                arg[i].d = pickle.load( open(default_file, "rb" ) )
+                #print default
+            except:
+                print arg[i].id
+                print "loading default fail"
+
+            if arg[i].t=="opmenu":
+                build_opmenu(arg[i],frame)
+            if arg[i].t=="ent":
+                build_ent(arg[i],frame)
+            if arg[i].t=="varent":
+                build_varent(arg[i],frame)
+            if arg[i].t=="ckbtn":
+                build_ckbtn(arg[i],frame)
+            if arg[i].t=="headl":
+                build_headl(arg[i],frame)
+        reset_row()
+    def rebuild(self):
+        self.__init__(self.f,self.list)
+    def get(self,*arg):
+        values={}
+        for i in range(0,len(self.list)):
+            if self.list[i].t=="headl":
+                pass
+            else:
+                values[i]=self.list[i].get()
+        return values
+
+def get_all_values():
+
+    for i in range(1,id.called):
+        try:
+            e[i]=b[i].get()
+        except KeyError:
+            pass
+    return e
+
+def StartPatran():
+    top.quit()
+    #set_default()
+
+def set_default():
+    if not os.path.exists("default"):
+        os.makedirs("default")
+    try:
+        pickle.dump( directory.get(), open( "default\\directory.p", "wb" ) )
+    except:
+        pass
+    for i in range(0,len(classlist)):
+        for m in range(0,len(classlist[i].list)):
+            try:
+                default_file = classlist[i].list[m].get()
+                print default_file
+                def_name=classlist[i].list[m].id
+                def_file="default\\"+str(def_name)+".p"
+                print def_file
+                pickle.dump( default_file, open( def_file, "wb" ) )
+                print 'saved'
+            except:
+                print 'not saved'
+
+def reset(*arg):
+    calc_all_str.remove()
+    print "da hat sich was getraced!!"
+
+def hide(*arg):
+    print "***hide***"
+    if anatyp.get()=="Buckling":
+        loadincr.remove()
+        itperupdt.remove()
+        itperincr.remove()
+        maxiter.remove()
+        apprmeth.remove()
+        methhead.remove()
+        rootnum.rebuild()
+    if anatyp.get()=="Non-Linear":
+        methhead.rebuild()
+        apprmeth.rebuild()
+        if apprmeth.get()=="Newton":
+            rootnum.remove()
+            maxiter.remove()
+            loadincr.rebuild()
+            itperupdt.rebuild()
+            itperincr.rebuild()
+        if apprmeth.get()=="Arc-Length":
+            rootnum.remove()
+            maxiter.rebuild()
+            loadincr.remove()
+            itperupdt.remove()
+            itperincr.remove()
+
+def browse_directory():
+    folder=tkFileDialog.askdirectory()
+    directory.set(folder)
+
+
+#objekte erstellen
+geohead=headl("PANEL GEOMETRY")
+panelwidth=ent("panel width:",400,"mm")
+panellength=ent("panel length:",500,"mm")
+stringerheight=ent("stringer height:",37,"mm")
+stringerwidth=ent("stringer width:",55,"mm")
+stringerdist=ent("stringer distace:",150,"mm")
+stringernum=ent("number of stringer:",3,"")
+varfield=varent("number of stringer:",3,temvar)
+
+
+geofr=Frame(top,bd=6,relief=GROOVE)
+geofr.grid(row=0)
+geo_list=[geohead,panelwidth,panellength,stringerheight,stringerwidth,stringerdist,stringernum,varfield]
+geobox=iptbox(geofr,geo_list)
+
+temvar.trace("w", geobox.rebuild())
+
+#database name
+directory=StringVar()
+
+basefr=Frame(top,bd=6,relief=GROOVE)
+basefr.grid(row=1,column=0,sticky=N)
+dbaselab = Label(basefr, text="STL File:",width=26,anchor=W)
+dbaselab.grid(sticky=W,row=0)
+dbase = Entry(basefr, bd =2,width=29)
+dbase.insert(0,"database_01")
+dbase.grid(row=1, column=0,sticky=EW)
+browse_dir=Tkinter.Button(basefr, text ="browse", command = browse_directory)
+browse_dir.grid()
+direct=Label(basefr, textvariable=directory,width=27,anchor=E)
+direct.grid()
+
+#start button
+#spacer(basefr,2,0)
+helv36 = tkFont.Font(family='Helvetica', size=16, weight=tkFont.BOLD)
+B= Tkinter.Button(basefr, text ="Start Printing", command = StartPatran,width=13,height=2,font=helv36)
+B.grid()
+
+if __name__ == '__main__':
+
+    listener(geobox)
+    #rospy.spin()
+    top.mainloop()
+    print 'start slic3r'
+    DosCmd = 'slic3r --print-center 0,250 --first-layer-speed 15  -o  /home/frederic/Documents/G-Codes/mygcode.gcode /home/frederic/Documents/STL-Files/20mm_Cube/20mm_cube.stl --load /home/frederic/ur_am/config_files/Slic3r_config_MIRA3D-40v.ini'
+    os.system(DosCmd)
+    DosCmd = 'rosrun ur3_planning g_code_parser_node'
+    os.system(DosCmd)
+    DosCmd = 'rosrun ur3_planning run_opt_printing_process_node'
+    os.system(DosCmd)

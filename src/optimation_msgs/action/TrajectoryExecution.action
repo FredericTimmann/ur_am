@@ -1,0 +1,12 @@
+# Define the goal
+float32[] velocityVector
+float32 frequenz
+float32 time
+geometry_msgs/Pose StartPose
+geometry_msgs/Pose GoalPose
+---
+# Define the result
+float32 energy
+---
+# Define a feedback message
+float32 percent_complete

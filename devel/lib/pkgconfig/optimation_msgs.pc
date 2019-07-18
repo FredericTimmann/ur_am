@@ -1,0 +1,8 @@
+prefix=/home/frederic/ur_am/devel
+
+Name: optimation_msgs
+Description: Description of optimation_msgs
+Version: 0.0.0
+Cflags: -I/home/frederic/ur_am/devel/include
+Libs: -L/home/frederic/ur_am/devel/lib 
+Requires: actionlib_msgs roscpp rospy std_msgs realtime_tools
