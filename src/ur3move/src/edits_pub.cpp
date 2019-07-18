@@ -7,76 +7,74 @@
  #include <geometry_msgs/Pose.h>
  #include <sensor_msgs/JointState.h>
  #include <std_msgs/Float64.h>
+ #include <std_msgs/Float32.h>
+#include <tf/transform_broadcaster.h>
 //#include <Vector3.h>
-
-//trajectory_msgs::JointTrajectoryPoint tr_goal;
-control_msgs::FollowJointTrajectoryActionGoal   tr_goal;
-ros::Publisher goal_pub;
-ros::Publisher effort_pub;
-
-void callback_1(const control_msgs::FollowJointTrajectoryActionGoal& msg)
+class listener
 {
-//tr_goal=msg.goal.trajectory.points[1];
-tr_goal=msg;
-goal_pub.publish(tr_goal);
-ROS_INFO("Subrcribed TOPIC");
-}
-void callback_2(const sensor_msgs::JointState& msg)
-{
-  std_msgs::Float64 r_e;
-//tr_goal=msg.goal.trajectory.points[1];
-for (int i = 0; i < 6; i++) {
-  r_e.data+=msg.effort[i];
-}
-effort_pub.publish(r_e);
-//std::cout << "robot effort: " << r_e << '\n';
-//ROS_INFO("Subrcribed TOPIC");
-}
+protected:
+  ros::Publisher sum_effort_pub;
+  ros::Subscriber effort_sub;
 
+
+public:
+ros::NodeHandle nh_;
+  std::vector<double> effort;
+  float effort_sum;
+  std_msgs::Float32 effort_msg;
+
+  listener(){
+    effort_sub =  nh_.subscribe<sensor_msgs::JointState>("/joint_states", 1, &listener::effort_subCB, this);
+
+    sum_effort_pub= nh_.advertise<std_msgs::Float32>("/joint_effort_sum", 100);
+  }
+  ~listener(void)
+  {
+  }
+
+void setup_subscriber(){
+  effort_sub =  nh_.subscribe<sensor_msgs::JointState>("/joint_states", 1, &listener::effort_subCB, this);
+}
+void effort_subCB(const sensor_msgs::JointStateConstPtr &states ){
+  effort=states->effort;
+  effort_sum=0;
+  for (int i = 0; i < 6; i++) {
+    effort_sum+=std::abs(effort[i]);
+    }
+    //effort_sum=123;
+    //this->effort_sum=123;
+  }
+
+void publish_effort_(){
+
+  effort_msg.data=effort_sum;
+  sum_effort_pub.publish(effort_msg);
+  }
+
+//end of class
+};
 
 int main(int argc, char **argv)
 {
 // ROS i n i t i a l i z a t i o n
 ros::init(argc, argv, "edits_pub");
-ros::NodeHandle nh_;
+//ros::NodeHandle node;
 
+tf::TransformBroadcaster br;
+  tf::Transform transform;
 
-ros::Subscriber sub =  nh_.subscribe("/follow_joint_trajectory/goal", 1000, callback_1);
-goal_pub = nh_.advertise<control_msgs::FollowJointTrajectoryActionGoal>("/trajectory/goal", 1000);
-ros::Subscriber effort_sub =  nh_.subscribe("/joint_states", 1000, callback_2);
-effort_pub = nh_.advertise<std_msgs::Float64>("/effort_robot", 1000);
-ros::Publisher eef_pub = nh_.advertise<geometry_msgs::Pose >("/tool_position", 1000);
-//ros::Publisher goal_pub = nh_.advertise<trajectory_msgs::JointTrajectoryPoint>("/trajectory/goal", 1000);
-
-//ROS_INFO("pos: %f", tr_goal.positions[1]);
-tf::TransformListener listener;
-
-  ros::spin();
-  /*
-  ros::Rate rate(100.0);
-  while (nh_.ok()){
-    tf::StampedTransform transform;
-    geometry_msgs::Pose transPUB;
-      try{
-      listener.lookupTransform("/base", "/tool0_controller", ros::Time(0), transform);
-      transPUB.position.x=transform.getOrigin().x()*1000;//tcp_position in mm
-      transPUB.position.y=transform.getOrigin().y()*1000;//tcp_position in mm
-      transPUB.position.z=transform.getOrigin().z()*1000;//tcp_position in mm
-      transPUB.orientation.x=transform.getRotation().x();//tcp_orientation
-      transPUB.orientation.y=transform.getRotation().y();//tcp_orientation
-      transPUB.orientation.z=transform.getRotation().z();//tcp_orientation
-      transPUB.orientation.w=transform.getRotation().w();//tcp_orientation
-      eef_pub.publish(transPUB);
-      }
-      catch (tf::TransformException ex){
-        ROS_ERROR("%s",ex.what());
-        ros::Duration(1.0).sleep();
-      }
-      rate.sleep();
-
-    }*/
-
-
+listener effort_listener;
+ros::Subscriber sub = effort_listener.nh_.subscribe("/joint_states", 100, &listener::effort_subCB, &effort_listener);
+//effort_listener.setup_subscriber();
+ros::Rate rate(100.0);
+  while (ros::ok()){
+    effort_listener.publish_effort_();
+    transform.setOrigin( tf::Vector3(-0.35, 0.0, 0.0) );
+    transform.setRotation( tf::Quaternion(0, 0, 1, 0) );
+    br.sendTransform(tf::StampedTransform(transform, ros::Time::now(), "base_link", "printing_frame"));
+    ros::spinOnce();
+    rate.sleep();
+    }
 
 return 0;
 }

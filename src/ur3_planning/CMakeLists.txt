@@ -2,6 +2,11 @@ cmake_minimum_required(VERSION 2.8.3)
 project(ur3_planning)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
+
+if(CMAKE_COMPILER_IS_GNUCXX OR ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang"))
+    set(CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS}")
+endif()
+
 add_compile_options(-std=c++11)
 
 ## Find catkin macros and libraries
@@ -28,7 +33,10 @@ find_package(catkin REQUIRED COMPONENTS
   tf2_ros
   tf2_eigen
   tf2_geometry_msgs
+  trac_ik_lib
 )
+find_package(Boost REQUIRED COMPONENTS date_time)
+find_package(orocos_kdl REQUIRED)
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
@@ -120,10 +128,15 @@ find_package(catkin REQUIRED COMPONENTS
 ## LIBRARIES: libraries you create in this project that dependent projects also need
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
+
+
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES ur3_planning
-CATKIN_DEPENDS  interactive_makers moveit_core moveit_ros_perception moveit_ros_planning_interface pluginlib roscpp std_msgs
+CATKIN_DEPENDS   trac_ik_lib interactive_makers moveit_core moveit_ros_perception moveit_ros_planning_interface pluginlib roscpp std_msgs
+  DEPENDS
+    Boost
+    orocos_kdl
 )
 
 ###########
@@ -134,7 +147,10 @@ CATKIN_DEPENDS  interactive_makers moveit_core moveit_ros_perception moveit_ros_
 ## Your package locations should be listed before other locations
 include_directories(
 # include
+  ${/opt/ros/kinetic/share/trac_ik_lib}
   ${catkin_INCLUDE_DIRS}
+  ${Boost_INCLUDE_DIRS}
+  ${orocos_kdl_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library
@@ -150,12 +166,15 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
+add_executable(calc_print_time_node src/calc_print_time.cpp)
 add_executable(move_init_node src/move_init.cpp)
 add_executable(move_cartesian_node src/move_cartesian.cpp)
 add_executable(move_lin_node src/move_lin.cpp)
 add_executable(g_code_parser_node src/g_code_parser.cpp)
 add_executable(run_printing_process_node src/run_printing_process.cpp)
-
+add_executable(run_full_printing_process_node src/run_full_printing_process.cpp)
+add_executable(run_opt_printing_process_node src/run_opt_printing_process.cpp)
+add_executable(test_ik_node src/test_ik.cpp)
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
@@ -164,12 +183,20 @@ add_executable(run_printing_process_node src/run_printing_process.cpp)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
+
+add_dependencies(calc_print_time_node ur3_planning_generate_messages_cpp)
 add_dependencies(move_init_node ur3_planning_generate_messages_cpp)
 add_dependencies(move_cartesian_node ur3_planning_generate_messages_cpp)
 add_dependencies(move_lin_node ur3_planning_generate_messages_cpp)
 add_dependencies(g_code_parser_node ur3_planning_generate_messages_cpp)
 add_dependencies(run_printing_process_node ur3_planning_generate_messages_cpp)
+add_dependencies(run_full_printing_process_node ur3_planning_generate_messages_cpp)
+add_dependencies(run_opt_printing_process_node ur3_planning_generate_messages_cpp)
+add_dependencies(test_ik_node ur3_planning_generate_messages_cpp)
 ## Specify libraries to link a library or executable target against
+target_link_libraries(calc_print_time_node
+  ${catkin_LIBRARIES}
+)
 target_link_libraries(move_init_node
   ${catkin_LIBRARIES}
 )
@@ -185,6 +212,18 @@ target_link_libraries(g_code_parser_node
 target_link_libraries(run_printing_process_node
   ${catkin_LIBRARIES}
 )
+target_link_libraries(run_full_printing_process_node
+  ${catkin_LIBRARIES}
+)
+target_link_libraries(run_opt_printing_process_node
+  ${catkin_LIBRARIES}
+)
+target_link_libraries(test_ik_node
+  ${catkin_LIBRARIES}
+  ${Boost_LIBRARIES}
+  ${orocos_kdl_LIBRARIES}
+)
+
 #############
 ## Install ##
 #############
@@ -199,6 +238,15 @@ target_link_libraries(run_printing_process_node
 #   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 # )
 
+
+install(TARGETS test_ik_node
+  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
+
+install(DIRECTORY launch
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
 ## Mark executables and/or libraries for installation
 # install(TARGETS ${PROJECT_NAME} ${PROJECT_NAME}_node
 #   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}

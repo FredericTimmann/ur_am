@@ -129,7 +129,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/frederic/ur_am/devel/lib;/home/frederic/ur_am/devel/lib;/opt/ros/kinetic/lib)
+    foreach(path /home/frederic/ur_am/devel/lib;/home/frederic/orthos/devel/lib;/home/frederic/ur_am/devel/lib;/opt/ros/kinetic/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)
@@ -152,7 +152,7 @@ foreach(library ${libraries})
   endif()
 endforeach()
 
-set(ur3move_EXPORTED_TARGETS "")
+set(ur3move_EXPORTED_TARGETS "ur3move_generate_messages_cpp;ur3move_generate_messages_eus;ur3move_generate_messages_lisp;ur3move_generate_messages_nodejs;ur3move_generate_messages_py")
 # create dummy targets for exported code generation targets to make life of users easier
 foreach(t ${ur3move_EXPORTED_TARGETS})
   if(NOT TARGET ${t})
@@ -160,7 +160,7 @@ foreach(t ${ur3move_EXPORTED_TARGETS})
   endif()
 endforeach()
 
-set(depends "")
+set(depends "ur3_moveit_config/launch/ur3_moveit_planning_execution.launch;ur_modern_driver/launch/ur3_ros_control.launch;std_msgs;roscpp")
 foreach(depend ${depends})
   string(REPLACE " " ";" depend_list ${depend})
   # the package name of the dependency must be kept in a unique variable so that it is not overwritten in recursive calls
@@ -189,7 +189,7 @@ foreach(depend ${depends})
   list(APPEND ur3move_EXPORTED_TARGETS ${${ur3move_dep}_EXPORTED_TARGETS})
 endforeach()
 
-set(pkg_cfg_extras "")
+set(pkg_cfg_extras "ur3move-msg-extras.cmake")
 foreach(extra ${pkg_cfg_extras})
   if(NOT IS_ABSOLUTE ${extra})
     set(extra ${ur3move_DIR}/${extra})

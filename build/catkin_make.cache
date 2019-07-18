@@ -1,2 +1,2 @@
-printing_msg:roboticsgroup_gazebo_plugins:ur3_motion_execution:ur3_planning:ur3move:ur_modern_driver
+custom_msgs:optimation_msgs:pid:printing_gui:roboticsgroup_gazebo_plugins:ur3_motion_execution:ur3_planning:ur3move:ur_modern_driver
 -DCATKIN_DEVEL_PREFIX=/home/frederic/ur_am/devel -DCMAKE_INSTALL_PREFIX=/home/frederic/ur_am/install -G Unix Makefiles

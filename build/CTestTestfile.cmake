@@ -6,7 +6,10 @@
 # testing this directory and lists subdirectories to be tested as well.
 subdirs(gtest)
 subdirs(ur3_motion_execution)
-subdirs(printing_msg)
+subdirs(custom_msgs)
+subdirs(printing_gui)
+subdirs(optimation_msgs)
+subdirs(pid)
 subdirs(roboticsgroup_gazebo_plugins)
 subdirs(ur3move)
 subdirs(ur_modern_driver)

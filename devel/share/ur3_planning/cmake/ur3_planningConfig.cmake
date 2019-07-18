@@ -91,9 +91,9 @@ endif()
 # flag project as catkin-based to distinguish if a find_package()-ed project is a catkin project
 set(ur3_planning_FOUND_CATKIN_PROJECT TRUE)
 
-if(NOT " " STREQUAL " ")
+if(NOT "/usr/include;/usr/include/eigen3;/opt/ros/kinetic/include " STREQUAL " ")
   set(ur3_planning_INCLUDE_DIRS "")
-  set(_include_dirs "")
+  set(_include_dirs "/usr/include;/usr/include/eigen3;/opt/ros/kinetic/include")
   if(NOT " " STREQUAL " ")
     set(_report "Check the issue tracker '' and consider creating a ticket if the problem has not been reported yet.")
   elseif(NOT " " STREQUAL " ")
@@ -116,7 +116,7 @@ if(NOT " " STREQUAL " ")
   endforeach()
 endif()
 
-set(libraries "")
+set(libraries "/usr/lib/x86_64-linux-gnu/libboost_date_time.so;/opt/ros/kinetic/lib/liborocos-kdl.so.1.3.0")
 foreach(library ${libraries})
   # keep build configuration keywords, target names and absolute libraries as-is
   if("${library}" MATCHES "^(debug|optimized|general)$")
@@ -129,7 +129,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/frederic/ur_am/devel/lib;/home/frederic/ur_am/devel/lib;/opt/ros/kinetic/lib)
+    foreach(path /home/frederic/ur_am/devel/lib;/home/frederic/orthos/devel/lib;/home/frederic/ur_am/devel/lib;/opt/ros/kinetic/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)
@@ -160,7 +160,7 @@ foreach(t ${ur3_planning_EXPORTED_TARGETS})
   endif()
 endforeach()
 
-set(depends "interactive_makers;moveit_core;moveit_ros_perception;moveit_ros_planning_interface;pluginlib;roscpp;std_msgs")
+set(depends "trac_ik_lib;interactive_makers;moveit_core;moveit_ros_perception;moveit_ros_planning_interface;pluginlib;roscpp;std_msgs")
 foreach(depend ${depends})
   string(REPLACE " " ";" depend_list ${depend})
   # the package name of the dependency must be kept in a unique variable so that it is not overwritten in recursive calls

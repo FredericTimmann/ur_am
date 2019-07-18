@@ -5,4 +5,4 @@ Description: Description of ur3move
 Version: 0.0.0
 Cflags: 
 Libs: -L/home/frederic/ur_am/install/lib 
-Requires: 
+Requires: ur3_moveit_config/launch/ur3_moveit_planning_execution.launch ur_modern_driver/launch/ur3_ros_control.launch std_msgs roscpp

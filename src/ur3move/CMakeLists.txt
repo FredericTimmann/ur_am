@@ -11,7 +11,10 @@ find_package(catkin REQUIRED COMPONENTS
   cmake_modules
   ur3_moveit_config
   ur_modern_driver
+  message_generation
+  geometry_msgs
   tf
+  sensor_msgs
   std_msgs
   roscpp
 )
@@ -71,10 +74,12 @@ find_package(catkin REQUIRED COMPONENTS
 # )
 
 ## Generate added messages and services with any dependencies listed here
-# generate_messages(
-#   DEPENDENCIES
-#   std_msgs  # Or other packages containing msgs
-# )
+ generate_messages(
+   DEPENDENCIES
+ std_msgs  # Or other packages containing msgs
+geometry_msgs
+sensor_msgs
+ )
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -108,7 +113,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES ur3move
-#  CATKIN_DEPENDS cmake_modules ur3_moveit_config/launch/ur3_moveit_planning_execution.launch ur_modern_driver/launch/ur3_ros_control.launch
+ CATKIN_DEPENDS  ur3_moveit_config/launch/ur3_moveit_planning_execution.launch ur_modern_driver/launch/ur3_ros_control.launch std_msgs roscpp
 #  DEPENDS system_lib
 )
 

@@ -1,8 +1,0 @@
-prefix=/home/frederic/ur_am/devel
-
-Name: printing_msg
-Description: Description of printing_msg
-Version: 0.0.0
-Cflags: 
-Libs: -L/home/frederic/ur_am/devel/lib 
-Requires: 
